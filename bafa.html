@@ -214,15 +214,16 @@ label.field-label{display:block;font-size:.85rem;color:var(--muted);margin-botto
 <!-- Step 3 -->
 <div class="form-step" data-step="3">
 <h3 style="text-align:center;margin-bottom:20px">Ihre Kontaktdaten</h3>
-<label class="field-label">Name *</label>
-<input type="text" name="name" required placeholder="Max Mustermann">
-<label class="field-label">Firma *</label>
-<input type="text" name="firma" required placeholder="Musterfirma GmbH">
-<label class="field-label">E-Mail *</label>
-<input type="email" name="email" required placeholder="max@firma.de">
-<label class="field-label">Telefon</label>
-<input type="tel" name="telefon" placeholder="+49 123 456789">
-<div class="form-nav"><button type="button" class="btn-back" onclick="prevStep()">Zurück</button><button type="submit" class="btn" style="width:100%;text-align:center;flex:1;margin-left:12px">Kostenlose Erstberatung anfordern</button></div>
+<div id="hubspot-form"></div>
+<script>
+  hbspt.forms.create({
+    region: "eu1",
+    portalId: "147808802",
+    formId: "ef049906-8814-4178-9f12-9c91da944a51",
+    target: "#hubspot-form"
+  });
+</script>
+<div class="form-nav"><button type="button" class="btn-back" onclick="prevStep()">Zurück</button></div>
 </div>
 </form>
 </div>
@@ -283,5 +284,6 @@ document.getElementById('bafaForm').addEventListener('submit',function(){
   document.getElementById('hiddenAlter').value=selections.alter;
 });
 </script>
+<script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
 </body>
 </html>
