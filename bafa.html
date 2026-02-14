@@ -215,14 +215,6 @@ label.field-label{display:block;font-size:.85rem;color:var(--muted);margin-botto
 <div class="form-step" data-step="3">
 <h3 style="text-align:center;margin-bottom:20px">Ihre Kontaktdaten</h3>
 <div id="hubspot-form"></div>
-<script>
-  hbspt.forms.create({
-    region: "eu1",
-    portalId: "147808802",
-    formId: "ef049906-8814-4178-9f12-9c91da944a51",
-    target: "#hubspot-form"
-  });
-</script>
 <div class="form-nav"><button type="button" class="btn-back" onclick="prevStep()">Zurück</button></div>
 </div>
 </form>
@@ -262,6 +254,7 @@ label.field-label{display:block;font-size:.85rem;color:var(--muted);margin-botto
 </div>
 </section>
 
+<script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
 <script>
 let currentStep=1,selections={beratung:'',alter:''};
 function selectOption(btn,type){
@@ -277,13 +270,17 @@ function showStep(n){
   document.querySelectorAll('.form-progress .dot').forEach((d,i)=>d.classList.toggle('active',i<n));
   currentStep=n;
 }
-function nextStep(){if(currentStep<3)showStep(currentStep+1)}
+var hsFormCreated=false;
+function nextStep(){if(currentStep<3)showStep(currentStep+1);if(currentStep===3&&!hsFormCreated){hsFormCreated=true;hbspt.forms.create({region:"eu1",portalId:"147808802",formId:"ef049906-8814-4178-9f12-9c91da944a51",target:"#hubspot-form"})}}
 function prevStep(){if(currentStep>1)showStep(currentStep-1)}
 document.getElementById('bafaForm').addEventListener('submit',function(){
   document.getElementById('hiddenBeratung').value=selections.beratung;
   document.getElementById('hiddenAlter').value=selections.alter;
 });
 </script>
-<script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
+<script>
+// Fallback: if someone lands directly on step 3 or SDK loaded late
+window.addEventListener('load',function(){if(document.querySelector('[data-step="3"]').style.display!=='none'&&!document.querySelector('#hubspot-form iframe')){hbspt.forms.create({region:"eu1",portalId:"147808802",formId:"ef049906-8814-4178-9f12-9c91da944a51",target:"#hubspot-form"})}});
+</script>
 </body>
 </html>
