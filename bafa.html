@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAFA-Förderung — Bis zu 80% Zuschuss auf Digitalisierungsberatung | DevelopAway</title>
+<meta name="description" content="Als BAFA-zertifizierte Berater unterstützen wir KMUs bei der digitalen Transformation. Bis zu 80% staatliche Förderung auf IT-Beratung sichern.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--surface:#12121a;--surface2:#1a1a26;--border:#2a2a3a;--text:#e8e8f0;--muted:#8888a0;--purple:#8b5cf6;--purple-light:#a78bfa;--gradient:linear-gradient(135deg,#8b5cf6,#6366f1,#3b82f6)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Outfit',sans-serif;line-height:1.2}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:16px 36px;background:var(--gradient);color:#fff;font-weight:600;font-size:1.05rem;border:none;border-radius:12px;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,.35)}
+.badge{display:inline-block;padding:8px 18px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);border-radius:100px;font-size:.85rem;color:var(--purple-light);font-weight:500;margin-bottom:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px}
+
+/* Hero */
+.hero{padding:100px 0 80px;text-align:center}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;margin-bottom:20px;background:linear-gradient(135deg,#fff 30%,var(--purple-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:640px;margin:0 auto 36px}
+
+/* Sections */
+section{padding:80px 0}
+.section-label{text-align:center;margin-bottom:12px;color:var(--purple-light);font-weight:600;font-size:.9rem;text-transform:uppercase;letter-spacing:1px}
+.section-title{text-align:center;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;margin-bottom:48px}
+
+/* BAFA Explainer */
+.bafa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.bafa-grid .card{text-align:center}
+.bafa-grid .card .big{font-size:2.6rem;font-weight:800;font-family:'Outfit',sans-serif;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.bafa-grid .card .label{color:var(--muted);font-size:.9rem}
+
+.math-card{margin-top:32px;background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(99,102,241,.08));border:1px solid rgba(139,92,246,.2);border-radius:16px;padding:36px;text-align:center}
+.math-card .row{display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;font-size:1.3rem;font-weight:600}
+.math-card .strike{text-decoration:line-through;color:var(--muted)}
+.math-card .arrow{color:var(--purple-light);font-size:1.6rem}
+.math-card .highlight{color:#34d399;font-size:1.5rem}
+
+/* Services */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.services-grid .card{transition:border-color .2s}
+.services-grid .card:hover{border-color:var(--purple)}
+.services-grid .card .icon{font-size:2rem;margin-bottom:12px}
+.services-grid .card h3{font-size:1.1rem;margin-bottom:8px}
+.services-grid .card p{color:var(--muted);font-size:.92rem}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;counter-reset:step}
+.step{position:relative;padding:32px;background:var(--surface);border:1px solid var(--border);border-radius:16px;text-align:center}
+.step::before{counter-increment:step;content:counter(step);display:flex;align-items:center;justify-content:center;width:48px;height:48px;margin:0 auto 16px;border-radius:50%;background:var(--gradient);font-family:'Outfit',sans-serif;font-weight:700;font-size:1.3rem;color:#fff}
+.step h3{margin-bottom:8px}
+.step p{color:var(--muted);font-size:.92rem}
+
+/* Qualifies */
+.qualify-list{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.qualify-item{display:flex;align-items:flex-start;gap:14px;padding:18px 24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:1rem}
+.qualify-item .check{color:#34d399;font-size:1.3rem;flex-shrink:0}
+
+/* Multi-step Form */
+.form-section{background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.form-wrapper{max-width:560px;margin:0 auto}
+.form-step{display:none;animation:fadeUp .4s ease}
+.form-step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.form-progress{display:flex;gap:8px;justify-content:center;margin-bottom:32px}
+.form-progress .dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:background .3s}
+.form-progress .dot.active{background:var(--purple)}
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.option-btn{padding:18px;background:var(--surface2);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:.95rem;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s;text-align:center}
+.option-btn:hover,.option-btn.selected{border-color:var(--purple);background:rgba(139,92,246,.1)}
+.option-btn small{display:block;color:var(--purple-light);font-size:.8rem;margin-top:4px}
+.form-nav{display:flex;justify-content:space-between;margin-top:24px}
+.btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);padding:12px 28px;border-radius:12px;cursor:pointer;font-size:.95rem}
+.btn-back:hover{border-color:var(--purple);color:var(--text)}
+input[type="text"],input[type="email"],input[type="tel"]{width:100%;padding:14px 18px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:1rem;margin-bottom:14px;font-family:'Inter',sans-serif}
+input:focus{outline:none;border-color:var(--purple)}
+label.field-label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+
+/* Trust */
+.trust{text-align:center}
+.trust p{color:var(--muted);font-size:1rem;margin-bottom:20px}
+.trust-logos{display:flex;justify-content:center;align-items:center;gap:32px;flex-wrap:wrap;opacity:.6}
+.trust-logos span{font-size:.95rem;font-weight:600;padding:10px 20px;border:1px solid var(--border);border-radius:8px}
+
+/* FAQ */
+.faq-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.faq-q{padding:20px 24px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:1.4rem;color:var(--purple-light);transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{padding:0 24px;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;color:var(--muted);font-size:.95rem}
+.faq-item.open .faq-a{max-height:200px;padding:0 24px 20px}
+
+/* Footer CTA */
+.footer-cta{text-align:center;padding:80px 0 100px}
+.footer-cta h2{font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:24px}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+<div class="container">
+<span class="badge">🇩🇪 BAFA-Förderung — Bis zu 80% Zuschuss</span>
+<h1>Digitalisierungsberatung mit bis zu 80% staatlicher Förderung</h1>
+<p>Als BAFA-zertifizierte Berater unterstützen wir KMUs bei der digitalen Transformation — und der Staat übernimmt den Großteil der Kosten.</p>
+<a href="#formular" class="btn">Kostenlose Erstberatung sichern</a>
+</div>
+</section>
+
+<!-- What is BAFA -->
+<section>
+<div class="container">
+<div class="section-label">Förderprogramm</div>
+<h2 class="section-title">Was ist die BAFA-Förderung?</h2>
+<p style="text-align:center;color:var(--muted);max-width:680px;margin:-28px auto 40px;font-size:1.05rem">Das Bundesamt für Wirtschaft und Ausfuhrkontrolle (BAFA) bezuschusst professionelle Unternehmensberatung für kleine und mittlere Unternehmen — damit Digitalisierung kein Kostenfaktor bleibt.</p>
+<div class="bafa-grid">
+<div class="card"><div class="big">80%</div><div class="label">Zuschuss für junge Unternehmen<br>(unter 2 Jahre)</div></div>
+<div class="card"><div class="big">50%</div><div class="label">Zuschuss für etablierte Unternehmen<br>(über 2 Jahre)</div></div>
+<div class="card"><div class="big">2.800€</div><div class="label">Maximale Fördersumme<br>(junge Unternehmen)</div></div>
+</div>
+<div class="math-card">
+<div style="color:var(--muted);font-size:.9rem;margin-bottom:12px">Rechenbeispiel — Junges Unternehmen</div>
+<div class="row">
+<span class="strike">Beratungskosten: 3.500€</span>
+<span class="arrow">→</span>
+<span class="highlight">Ihr Anteil: nur 700€</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Services -->
+<section>
+<div class="container">
+<div class="section-label">Leistungen</div>
+<h2 class="section-title">Unsere förderfähigen Beratungsleistungen</h2>
+<div class="services-grid">
+<div class="card"><div class="icon">🧭</div><h3>IT-Strategieberatung</h3><p>Analyse Ihrer IT-Infrastruktur und Entwicklung einer Digitalisierungsstrategie</p></div>
+<div class="card"><div class="icon">🔍</div><h3>Technologie-Audit</h3><p>Bewertung Ihres Tech-Stacks und Empfehlungen für Modernisierung</p></div>
+<div class="card"><div class="icon">⚙️</div><h3>Prozessdigitalisierung</h3><p>Identifikation von Automatisierungspotentialen in Ihren Geschäftsprozessen</p></div>
+<div class="card"><div class="icon">☁️</div><h3>Cloud-Strategie</h3><p>Entwicklung eines Cloud-Migrationsplans <span style="color:var(--purple-light)">(powered by XALT)</span></p></div>
+</div>
+</div>
+</section>
+
+<!-- Steps -->
+<section>
+<div class="container">
+<div class="section-label">Ablauf</div>
+<h2 class="section-title">So funktioniert's — in 3 Schritten</h2>
+<div class="steps">
+<div class="step"><h3>Erstgespräch</h3><p>Kostenlose 30-Min Beratung zur Prüfung Ihrer Förderfähigkeit</p></div>
+<div class="step"><h3>Antragstellung</h3><p>Wir unterstützen Sie bei der kompletten BAFA-Antragstellung</p></div>
+<div class="step"><h3>Beratung & Umsetzung</h3><p>Nach Genehmigung starten wir die geförderte Beratung</p></div>
+</div>
+</div>
+</section>
+
+<!-- Who Qualifies -->
+<section>
+<div class="container">
+<div class="section-label">Voraussetzungen</div>
+<h2 class="section-title">Wer wird gefördert?</h2>
+<div class="qualify-list">
+<div class="qualify-item"><span class="check">✅</span>KMUs mit Sitz in Deutschland</div>
+<div class="qualify-item"><span class="check">✅</span>Unternehmen mit weniger als 250 Mitarbeitern</div>
+<div class="qualify-item"><span class="check">✅</span>Jahresumsatz unter 50 Mio. € oder Bilanzsumme unter 43 Mio. €</div>
+<div class="qualify-item"><span class="check">✅</span>Unternehmen in wirtschaftlichen Schwierigkeiten (höhere Förderquote!)</div>
+<div class="qualify-item"><span class="check">✅</span>Junge Unternehmen unter 2 Jahren (bis zu 80% Förderung)</div>
+</div>
+</div>
+</section>
+
+<!-- Lead Capture Form -->
+<section class="form-section" id="formular">
+<div class="container" style="padding-top:80px;padding-bottom:80px">
+<div class="section-label">Jetzt starten</div>
+<h2 class="section-title">Kostenlose Erstberatung anfragen</h2>
+<div class="form-wrapper">
+<div class="form-progress"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+<form id="bafaForm" action="mailto:info@developaway.de" method="POST" enctype="text/plain">
+<input type="hidden" name="beratung" id="hiddenBeratung">
+<input type="hidden" name="unternehmensalter" id="hiddenAlter">
+
+<!-- Step 1 -->
+<div class="form-step active" data-step="1">
+<h3 style="text-align:center;margin-bottom:20px">Welche Beratung benötigen Sie?</h3>
+<div class="option-grid">
+<button type="button" class="option-btn" data-value="IT-Strategie" onclick="selectOption(this,'beratung')">🧭 IT-Strategie</button>
+<button type="button" class="option-btn" data-value="Technologie-Audit" onclick="selectOption(this,'beratung')">🔍 Technologie-Audit</button>
+<button type="button" class="option-btn" data-value="Prozessdigitalisierung" onclick="selectOption(this,'beratung')">⚙️ Prozessdigitalisierung</button>
+<button type="button" class="option-btn" data-value="Cloud-Strategie" onclick="selectOption(this,'beratung')">☁️ Cloud-Strategie</button>
+</div>
+<div class="form-nav" style="justify-content:flex-end"><button type="button" class="btn" onclick="nextStep()" id="btn1" disabled style="opacity:.5">Weiter</button></div>
+</div>
+
+<!-- Step 2 -->
+<div class="form-step" data-step="2">
+<h3 style="text-align:center;margin-bottom:20px">Wie lange besteht Ihr Unternehmen?</h3>
+<div class="option-grid" style="grid-template-columns:1fr">
+<button type="button" class="option-btn" data-value="Unter 2 Jahre" onclick="selectOption(this,'alter')">Unter 2 Jahre <small>80% Förderung!</small></button>
+<button type="button" class="option-btn" data-value="2-5 Jahre" onclick="selectOption(this,'alter')">2–5 Jahre</button>
+<button type="button" class="option-btn" data-value="Über 5 Jahre" onclick="selectOption(this,'alter')">Über 5 Jahre</button>
+</div>
+<div class="form-nav"><button type="button" class="btn-back" onclick="prevStep()">Zurück</button><button type="button" class="btn" onclick="nextStep()" id="btn2" disabled style="opacity:.5">Weiter</button></div>
+</div>
+
+<!-- Step 3 -->
+<div class="form-step" data-step="3">
+<h3 style="text-align:center;margin-bottom:20px">Ihre Kontaktdaten</h3>
+<label class="field-label">Name *</label>
+<input type="text" name="name" required placeholder="Max Mustermann">
+<label class="field-label">Firma *</label>
+<input type="text" name="firma" required placeholder="Musterfirma GmbH">
+<label class="field-label">E-Mail *</label>
+<input type="email" name="email" required placeholder="max@firma.de">
+<label class="field-label">Telefon</label>
+<input type="tel" name="telefon" placeholder="+49 123 456789">
+<div class="form-nav"><button type="button" class="btn-back" onclick="prevStep()">Zurück</button><button type="submit" class="btn" style="width:100%;text-align:center;flex:1;margin-left:12px">Kostenlose Erstberatung anfordern</button></div>
+</div>
+</form>
+</div>
+</div>
+</section>
+
+<!-- Trust -->
+<section class="trust">
+<div class="container">
+<div class="section-label">Partner</div>
+<p>Backed by <strong style="color:var(--text)">XALT</strong> — Atlassian Partner & Enterprise IT-Beratung seit 2016</p>
+<div class="trust-logos">
+<span>XALT</span><span>Atlassian Partner</span><span>BAFA-zertifiziert</span>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section>
+<div class="container">
+<div class="section-label">FAQ</div>
+<h2 class="section-title">Häufige Fragen</h2>
+<div class="faq-list">
+<div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Muss ich den Antrag selbst stellen?</div><div class="faq-a">Nein, wir unterstützen Sie bei der kompletten Antragstellung — von der Prüfung der Förderfähigkeit bis zur Einreichung.</div></div>
+<div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Wie lange dauert die Genehmigung?</div><div class="faq-a">In der Regel 2–4 Wochen nach Einreichung des Antrags beim BAFA.</div></div>
+<div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Kann ich die Beratung auch ohne Förderung buchen?</div><div class="faq-a">Natürlich, kontaktieren Sie uns für ein individuelles Angebot.</div></div>
+</div>
+</div>
+</section>
+
+<!-- Footer CTA -->
+<section class="footer-cta">
+<div class="container">
+<h2>Sichern Sie sich jetzt Ihre Förderung</h2>
+<a href="#formular" class="btn">Kostenlose Erstberatung sichern</a>
+</div>
+</section>
+
+<script>
+let currentStep=1,selections={beratung:'',alter:''};
+function selectOption(btn,type){
+  btn.parentElement.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selections[type]=btn.dataset.value;
+  const nb=document.getElementById(type==='beratung'?'btn1':'btn2');
+  nb.disabled=false;nb.style.opacity='1';
+}
+function showStep(n){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.querySelector(`[data-step="${n}"]`).classList.add('active');
+  document.querySelectorAll('.form-progress .dot').forEach((d,i)=>d.classList.toggle('active',i<n));
+  currentStep=n;
+}
+function nextStep(){if(currentStep<3)showStep(currentStep+1)}
+function prevStep(){if(currentStep>1)showStep(currentStep-1)}
+document.getElementById('bafaForm').addEventListener('submit',function(){
+  document.getElementById('hiddenBeratung').value=selections.beratung;
+  document.getElementById('hiddenAlter').value=selections.alter;
+});
+</script>
+</body>
+</html>
