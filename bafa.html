@@ -271,7 +271,16 @@ function showStep(n){
   currentStep=n;
 }
 var hsFormCreated=false;
-function nextStep(){if(currentStep<3)showStep(currentStep+1);if(currentStep===3&&!hsFormCreated){hsFormCreated=true;hbspt.forms.create({region:"eu1",portalId:"147808802",formId:"ef049906-8814-4178-9f12-9c91da944a51",target:"#hubspot-form"})}}
+function createHsForm(){
+  if(hsFormCreated)return;
+  if(typeof hbspt!=='undefined'&&hbspt.forms){
+    hsFormCreated=true;
+    hbspt.forms.create({region:"eu1",portalId:"147808802",formId:"ef049906-8814-4178-9f12-9c91da944a51",target:"#hubspot-form"});
+  } else {
+    setTimeout(createHsForm,200);
+  }
+}
+function nextStep(){if(currentStep<3)showStep(currentStep+1);if(currentStep===3)createHsForm()}
 function prevStep(){if(currentStep>1)showStep(currentStep-1)}
 document.getElementById('bafaForm').addEventListener('submit',function(){
   document.getElementById('hiddenBeratung').value=selections.beratung;
