@@ -81,6 +81,13 @@ input[type="text"],input[type="email"],input[type="tel"]{width:100%;padding:14px
 input:focus{outline:none;border-color:var(--purple)}
 label.field-label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}
 
+/* Custom form styles */
+#contact-form{max-width:400px;margin:0 auto}
+#contact-form .btn{width:100%;margin-top:8px;transition:all .2s ease}
+#contact-form .btn:disabled{cursor:not-allowed;transform:none}
+#form-message{animation:slideDown .3s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+
 /* Trust */
 .trust{text-align:center}
 .trust p{color:var(--muted);font-size:1rem;margin-bottom:20px}
@@ -214,7 +221,18 @@ label.field-label{display:block;font-size:.85rem;color:var(--muted);margin-botto
 <!-- Step 3 -->
 <div class="form-step" data-step="3">
 <h3 style="text-align:center;margin-bottom:20px">Ihre Kontaktdaten</h3>
-<div id="hubspot-form"></div>
+<div id="contact-form">
+<label class="field-label">Vorname *</label>
+<input type="text" id="firstname" name="firstname" required>
+<label class="field-label">Nachname *</label>
+<input type="text" id="lastname" name="lastname" required>
+<label class="field-label">E-Mail *</label>
+<input type="email" id="email" name="email" required>
+<label class="field-label">Firma</label>
+<input type="text" id="company" name="company">
+<button type="submit" class="btn" id="submit-btn" onclick="submitForm()">Kostenlose Erstberatung anfordern</button>
+<div id="form-message" style="margin-top:16px;text-align:center;display:none;"></div>
+</div>
 <div class="form-nav"><button type="button" class="btn-back" onclick="prevStep()">Zurück</button></div>
 </div>
 </form>
@@ -254,7 +272,6 @@ label.field-label{display:block;font-size:.85rem;color:var(--muted);margin-botto
 </div>
 </section>
 
-<script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
 <script>
 let currentStep=1,selections={beratung:'',alter:''};
 function selectOption(btn,type){
@@ -270,26 +287,86 @@ function showStep(n){
   document.querySelectorAll('.form-progress .dot').forEach((d,i)=>d.classList.toggle('active',i<n));
   currentStep=n;
 }
-var hsFormCreated=false;
-function createHsForm(){
-  if(hsFormCreated)return;
-  if(typeof hbspt!=='undefined'&&hbspt.forms){
-    hsFormCreated=true;
-    hbspt.forms.create({region:"eu1",portalId:"147808802",formId:"ef049906-8814-4178-9f12-9c91da944a51",target:"#hubspot-form"});
-  } else {
-    setTimeout(createHsForm,200);
+function nextStep(){if(currentStep<3)showStep(currentStep+1)}
+function prevStep(){if(currentStep>1)showStep(currentStep-1)}
+
+async function submitForm(){
+  const btn = document.getElementById('submit-btn');
+  const messageDiv = document.getElementById('form-message');
+  
+  // Get form data
+  const firstname = document.getElementById('firstname').value.trim();
+  const lastname = document.getElementById('lastname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const company = document.getElementById('company').value.trim();
+  
+  // Validate required fields
+  if (!firstname || !lastname || !email) {
+    showMessage('Bitte füllen Sie alle Pflichtfelder aus.', 'error');
+    return;
+  }
+  
+  // Disable button and show loading state
+  btn.disabled = true;
+  btn.textContent = 'Wird übermittelt...';
+  btn.style.opacity = '0.7';
+  
+  try {
+    const response = await fetch('/api/bafa-lead', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        email,
+        company
+      })
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok && result.success) {
+      showMessage('Vielen Dank! Wir melden uns innerhalb von 24 Stunden bei Ihnen.', 'success');
+      // Clear form
+      document.getElementById('firstname').value = '';
+      document.getElementById('lastname').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('company').value = '';
+    } else {
+      showMessage('Fehler beim Übermitteln. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.', 'error');
+    }
+  } catch (error) {
+    console.error('Form submission error:', error);
+    showMessage('Fehler beim Übermitteln. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.', 'error');
+  } finally {
+    // Re-enable button
+    btn.disabled = false;
+    btn.textContent = 'Kostenlose Erstberatung anfordern';
+    btn.style.opacity = '1';
   }
 }
-function nextStep(){if(currentStep<3)showStep(currentStep+1);if(currentStep===3)createHsForm()}
-function prevStep(){if(currentStep>1)showStep(currentStep-1)}
-document.getElementById('bafaForm').addEventListener('submit',function(){
-  document.getElementById('hiddenBeratung').value=selections.beratung;
-  document.getElementById('hiddenAlter').value=selections.alter;
+
+function showMessage(text, type) {
+  const messageDiv = document.getElementById('form-message');
+  messageDiv.textContent = text;
+  messageDiv.style.display = 'block';
+  messageDiv.style.color = type === 'success' ? '#34d399' : '#ef4444';
+  messageDiv.style.padding = '12px 16px';
+  messageDiv.style.background = type === 'success' ? 'rgba(52, 211, 153, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+  messageDiv.style.border = type === 'success' ? '1px solid rgba(52, 211, 153, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)';
+  messageDiv.style.borderRadius = '8px';
+  messageDiv.style.fontSize = '0.95rem';
+}
+
+// Handle form submission on Enter key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && currentStep === 3) {
+    e.preventDefault();
+    submitForm();
+  }
 });
-</script>
-<script>
-// Fallback: if someone lands directly on step 3 or SDK loaded late
-window.addEventListener('load',function(){if(document.querySelector('[data-step="3"]').style.display!=='none'&&!document.querySelector('#hubspot-form iframe')){hbspt.forms.create({region:"eu1",portalId:"147808802",formId:"ef049906-8814-4178-9f12-9c91da944a51",target:"#hubspot-form"})}});
 </script>
 </body>
 </html>
